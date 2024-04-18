@@ -3,10 +3,11 @@ import re
 
 # add the items you want to parse from the receipt
 labels = {
-    'ks bath': 'toilet paper',
+    'ks bath': 'kirkland toilet paper',
     'boomchickpop': 'boom chicka pop',
     'bananas': 'bananas',
     'ks 5dz eggs': 'eggs',
+    'ks dz eggs': 'eggs',
     'milk': 'milk',
     'watermelon': 'watermelon',
     'choc crepes': 'chocolate crepes',
@@ -26,8 +27,18 @@ labels = {
     'mandarins': 'mandarins',
     'pumpkin flax': 'granola',
     'smokd salmon': 'smoked salmon',
-    'ks towel': 'paper towels',
-    'org gre bean': 'green beans'
+    'ks towel': 'kirkland paper towels',
+    'org gre bean': 'green beans',
+    'ks kettle' : 'kirkland kettle chips',
+    'modelo espec' : 'modelo beer',
+    'ks lond gin' : 'kirkland london gin',
+    'ks am vodka' : 'kirkland amsterdam vodka',
+    'ks prosecco' : 'kirkland prosecco',
+    'ks sockeye' : 'frozen sockeye salmon',
+    'cranrsp juic' : 'cranberry rasberry juice',
+    'cara oranges' : 'cara cara oranges',
+    'realemon pk' : 'lemon juice',
+    'acrylic disp' : 'acrylic drink dispenser',
 }
 
 def parse_costco_receipt(file_path):
@@ -67,7 +78,11 @@ def parse_costco_receipt(file_path):
                                         sale_price = float(sale_match.group()[:-1])
                                         price -= sale_price  
                                 # add the item and price to the parsed data
-                                parsed_data[labels[label]] = price
+                                if labels[label] in parsed_data:
+                                    print('dupe: ', labels[label])
+                                    parsed_data[labels[label]] += price
+                                else:
+                                    parsed_data[labels[label]] = price
                                 break
                 if not item_found:
                     if i + 1 < len(receipt_lines):
