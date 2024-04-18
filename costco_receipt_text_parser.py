@@ -39,6 +39,7 @@ labels = {
     'cara oranges' : 'cara cara oranges',
     'realemon pk' : 'lemon juice',
     'acrylic disp' : 'acrylic drink dispenser',
+    'kswtrpk' : 'water bottles',
 }
 
 def parse_costco_receipt(file_path):
